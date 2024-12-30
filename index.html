@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatGPTプロンプト生成ツール</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/14.1.1/marked.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-panel">
+        <form id="prompt-form">
+          <div class="title-content">
+            <h3>質問フォーム</h3>
+            <label>
+              <input type="checkbox" id="question-checkbox" /> 質問
+            </label>
+            <label>
+              <input type="checkbox" id="error-checkbox" /> エラー相談
+            </label>
+            <label>
+              <input type="checkbox" id="refactor-checkbox" /> リファクタ
+            </label>
+          </div>
+          <textarea id="main-question" rows="8"></textarea>
+
+          <div id="fields-container"></div>
+          <button type="button" id="add-field-btn">追加</button>
+        </form>
+      </div>
+      <div class="right-panel">
+        <button id="copy-btn">コピペ</button>
+        <div id="output">
+          <div id="main-question-output"></div>
+          <div id="fields-output"></div>
+        </div>
+      </div>
+    </div>
+    <button id="fixed-copy-btn" class="fixed-copy-btn">コピペ</button>
+
+    <!-- JavaScriptファイルの読み込み順に注意 -->
+    <script src="form-handler.js"></script>
+    <script src="output-handler.js"></script>
+    <script src="clipboard-handler.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
