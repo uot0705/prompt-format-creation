@@ -36,10 +36,41 @@ function initializeFormHandlers() {
           ".field input[type='text']"
         );
         firstField.value = "エラー内容";
-        if (fieldCount < 2) createField();
+
+        // 2つめのフィールドに「エラーの詳細情報」を追加
+        createField();
+        const secondField = fieldsContainer.querySelectorAll(".field input[type='text']")[1];
+        secondField.value = "出力内容";
+        const secondFieldContent = fieldsContainer.querySelectorAll(".field textarea")[1];
+        secondFieldContent.value = "・エラーの概要:\n・エラーの原因:\n・エラーの解決策:\n・解決策する為の具体的な方法(コードの修正の場合はコードを書く):";
       }
       updateOutput();
-    });
+  });
+
+  document
+    .getElementById("variable-name-checkbox")
+    .addEventListener("change", function () {
+      if (this.checked) {
+        uncheckOtherCheckboxes(this);
+        resetForm();
+        mainQuestion.value = "以下の変数の使い道に合う変数名を5個提案してください。\n提案する変数名は「シンプルな単語を使い」「意味が理解ができる」、「長くなりすぎない簡潔」な命名にしてください";
+
+        // 1つめのフィールド: 「変数の使い道」
+        createField();
+        const firstField = fieldsContainer.querySelector(
+          ".field input[type='text']"
+        );
+        firstField.value = "変数の使い道";
+
+        // 2つめのフィールド: 「出力内容(以下の内容で5個)」
+        createField();
+        const secondField = fieldsContainer.querySelectorAll(".field input[type='text']")[1];
+        secondField.value = "出力内容(以下の内容で5個)";
+        const secondFieldContent = fieldsContainer.querySelectorAll(".field textarea")[1];
+        secondFieldContent.value = "・変数名:\n・おすすめの理由：";
+      }
+      updateOutput();
+  });
 
   document
     .getElementById("refactor-checkbox")
