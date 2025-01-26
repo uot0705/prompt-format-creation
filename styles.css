@@ -6,9 +6,6 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   background-color: #f5f5f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   overflow: hidden;
 }
@@ -77,6 +74,19 @@ button:hover {
   justify-content: space-between;
 }
 
+.common-word-btn {
+  border: none;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.common-word-btn:hover {
+  background-color: #0056b3;
+}
 .header-buttons {
   display: flex;
   align-items: center;
