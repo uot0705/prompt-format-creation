@@ -112,6 +112,8 @@ function createField() {
       <button type="button" class="common-word-btn" data-word="コード">コード</button>
       <button type="button" class="common-word-btn" data-word="TSファイル">TSファイル</button>
       <button type="button" class="common-word-btn" data-word="HTMLファイル">HTMLファイル</button>
+      <button type="button" class="common-word-btn" data-word="エラー">エラー</button>
+      <button type="button" class="common-word-btn" data-word="レビュー内容">レビュー内容</button>
     </div>
     <div class="field-content" style="display: block;">
       <textarea rows="8" placeholder="内容"></textarea>
