@@ -46,7 +46,7 @@ function initializeFormHandlers() {
         const secondFieldContent =
           fieldsContainer.querySelectorAll(".field textarea")[1];
         secondFieldContent.value =
-          "・エラーの概要:\n・エラーの原因:\n・エラーの解決策:\n・解決策する為の具体的な方法(コードの修正の場合はコードを書く):";
+          "以下の内容を全て「エンジニア初心者でもわかりやすいように」丁寧に教えてください\n・エラーの概要:\n・エラーの原因:\n・エラーの解決策:\n・解決策する為の具体的な方法(コードの修正の場合はコードを書く):";
       }
       updateOutput();
     });
@@ -88,9 +88,63 @@ function initializeFormHandlers() {
         resetForm();
         mainQuestion.value = "以下のリファクタをしてください";
         createField();
+
+        const firstFieldInput = fieldsContainer.querySelector(".field input[type='text']");
+        firstFieldInput.value = "出力内容";
+    
+        // 1つ目のフィールドのtextareaに詳細情報をセット
+        const firstFieldTextarea = fieldsContainer.querySelector(".field textarea");
+        firstFieldTextarea.value =
+          "リファクタ箇所を箇条書きで出力して、「エンジニア初心者でもわかりやすいように」以下を提供してください。\n" + 
+          "・なぜリファクタするのか。\n" + 
+          "・どのようなリファクタをすればいいのか\n" + 
+          "・リファクタしたコード";
       }
       updateOutput();
     });
+  
+    document.getElementById("review-checkbox").addEventListener("change", function () {
+      if (this.checked) {
+        // 他のチェックボックスのチェックを外し、フォームをリセット
+        uncheckOtherCheckboxes(this);
+        resetForm();
+        const mainQuestion = document.getElementById("main-question");
+    
+        // メインの質問フィールドに指定のテキストをセット
+        mainQuestion.value = "上司からのレビュー指摘内容を以下の「出力内容」に沿って回答してください";
+    
+        // ---------------------------
+        // 1つ目のフィールド：出力内容とその詳細をセット
+        // ---------------------------
+        createField();
+        const firstFieldInput = fieldsContainer.querySelector(".field input[type='text']");
+        firstFieldInput.value = "出力内容";
+    
+        // 1つ目のフィールドのtextareaに詳細情報をセット
+        const firstFieldTextarea = fieldsContainer.querySelector(".field textarea");
+        firstFieldTextarea.value =
+          "以下の内容を全て「エンジニア初心者でもわかりやすいように」丁寧に教えてください\n" +
+          "・上司からのレビュー指摘内容の概要\n" +
+          "・レビュー内容に「なぜ」修正した方がいいのかの詳細\n" +
+          "・現状のコードの修正箇所を箇条書きで書き出す\n" +
+          "・上記の修正箇所の修正コードを提供してください";
+    
+        // ---------------------------
+        // 2つ目のフィールド：上司からのレビュー指摘内容
+        // ---------------------------
+        createField();
+        const secondFieldInput = fieldsContainer.querySelectorAll(".field input[type='text']")[1];
+        secondFieldInput.value = "上司からのレビュー指摘内容";
+    
+        // ---------------------------
+        // 3つ目のフィールド：対象コード
+        // ---------------------------
+        createField();
+        const thirdFieldInput = fieldsContainer.querySelectorAll(".field input[type='text']")[2];
+        thirdFieldInput.value = "対象コード";
+      }
+      updateOutput();
+    });    
 }
 
 function createField() {
@@ -112,8 +166,8 @@ function createField() {
       <button type="button" class="common-word-btn" data-word="コード">コード</button>
       <button type="button" class="common-word-btn" data-word="TSファイル">TSファイル</button>
       <button type="button" class="common-word-btn" data-word="HTMLファイル">HTMLファイル</button>
+      <button type="button" class="common-word-btn" data-word="テストコード">テストコード</button>
       <button type="button" class="common-word-btn" data-word="エラー">エラー</button>
-      <button type="button" class="common-word-btn" data-word="レビュー内容">レビュー内容</button>
     </div>
     <div class="field-content" style="display: block;">
       <textarea rows="8" placeholder="内容"></textarea>
@@ -181,6 +235,10 @@ function uncheckOtherCheckboxes(exceptCheckbox) {
     document.getElementById("question-checkbox").checked = false;
   if (exceptCheckbox !== document.getElementById("error-checkbox"))
     document.getElementById("error-checkbox").checked = false;
+  if (exceptCheckbox !== document.getElementById("variable-name-checkbox"))
+    document.getElementById("variable-name-checkbox").checked = false;
   if (exceptCheckbox !== document.getElementById("refactor-checkbox"))
     document.getElementById("refactor-checkbox").checked = false;
+  if (exceptCheckbox !== document.getElementById("review-checkbox"))
+    document.getElementById("review-checkbox").checked = false;
 }
