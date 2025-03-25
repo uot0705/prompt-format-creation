@@ -98,8 +98,8 @@ function initializeFormHandlers() {
         const firstFieldTextarea =
           fieldsContainer.querySelector(".field textarea");
         firstFieldTextarea.value =
-          "リファクタ箇所を箇条書きで出力して、「中学生のエンジニア初心者でもわかりやすいように」以下を提供してください。\n" +
-          "・なぜリファクタするのか。\n" +
+          "リファクタしたほうが良い箇所を「3箇所」選んでください。その3箇所の現在のコードを出力して、以下を「中学生のエンジニア初心者でもわかりやすいように」教えてください。\n" +
+          "・なぜリファクタしたほうが良いか\n" +
           "・どのようなリファクタをすればいいのか\n" +
           "・リファクタしたコード";
       }
