@@ -46,7 +46,7 @@ function initializeFormHandlers() {
         const secondFieldContent =
           fieldsContainer.querySelectorAll(".field textarea")[1];
         secondFieldContent.value =
-          "以下の内容を全て「中学生のエンジニア初心者でもわかりやすいように」丁寧に教えてください\n・エラーの概要:\n・エラーの原因:\n・エラーの解決策:\n・解決策する為の具体的な方法(コードの修正の場合はコードを書く):";
+          "以下の内容を全て「エンジニア初心者でもわかりやすいように」丁寧に教えてください\n・エラーの概要:\n・エラーの原因:\n・エラーの解決策:\n・解決策する為の具体的な方法(コードの修正の場合はコードを書く):";
       }
       updateOutput();
     });
@@ -98,7 +98,7 @@ function initializeFormHandlers() {
         const firstFieldTextarea =
           fieldsContainer.querySelector(".field textarea");
         firstFieldTextarea.value =
-          "リファクタしたほうが良い箇所を「3箇所」選んでください。その3箇所の現在のコードを出力して、以下を「中学生のエンジニア初心者でもわかりやすいように」教えてください。\n" +
+          "リファクタしたほうが良い箇所を「3箇所」選んでください。その3箇所の現在のコードを出力して、以下を「エンジニア初心者でもわかりやすいように」教えてください。\n" +
           "・なぜリファクタしたほうが良いか\n" +
           "・どのようなリファクタをすればいいのか\n" +
           "・リファクタしたコード";
@@ -132,7 +132,7 @@ function initializeFormHandlers() {
         const firstFieldTextarea =
           fieldsContainer.querySelector(".field textarea");
         firstFieldTextarea.value =
-          "以下の内容を全て「中学生のエンジニア初心者でもわかりやすいように」丁寧に教えてください\n" +
+          "以下の内容を全て「エンジニア初心者でもわかりやすいように」丁寧に教えてください\n" +
           "・上司からのレビュー指摘内容の概要\n" +
           "・レビュー内容に「なぜ」修正した方がいいのかの詳細\n" +
           "・現状のコードの修正箇所を箇条書きで書き出す\n" +
@@ -184,10 +184,10 @@ function initializeFormHandlers() {
         const firstFieldTextarea =
           fieldsContainer.querySelector(".field textarea");
         firstFieldTextarea.value =
-          "以下の内容を全て「中学生のエンジニア初心者でもわかりやすいように」丁寧に教えてください\n" +
+          "以下の内容を全て「エンジニア初心者でもわかりやすいように」丁寧に教えてください\n" +
           "・やりとりの概要\n" +
           "・結果どうなったのか\n" +
-          "・上記の結果に至るまでの経緯を説明してください" 
+          "・上記の結果に至るまでの経緯を説明してください";
 
         // ---------------------------
         // 2つ目のフィールド：上司からのレビュー指摘内容
@@ -197,6 +197,48 @@ function initializeFormHandlers() {
           ".field input[type='text']"
         )[1];
         secondFieldInput.value = "やりとり";
+      }
+      updateOutput();
+    });
+
+  document
+    .getElementById("code-analysis")
+    .addEventListener("change", function () {
+      if (this.checked) {
+        // 他のチェックボックスのチェックを外し、フォームをリセット
+        uncheckOtherCheckboxes(this);
+        resetForm();
+        const mainQuestion = document.getElementById("main-question");
+
+        // メインの質問フィールドに指定のテキストをセット
+        mainQuestion.value = "以下の出力回答に沿ってコードの解析をしてください";
+
+        // ---------------------------
+        // 1つ目のフィールド：出力内容とその詳細をセット
+        // ---------------------------
+        createField();
+        const firstFieldInput = fieldsContainer.querySelector(
+          ".field input[type='text']"
+        );
+        firstFieldInput.value = "出力内容";
+
+        // 1つ目のフィールドのtextareaに詳細情報をセット
+        const firstFieldTextarea =
+          fieldsContainer.querySelector(".field textarea");
+        firstFieldTextarea.value =
+          "以下の内容を全て「エンジニア初心者でもわかりやすいように」丁寧に教えてください\n" +
+          "・対象コードの全体的な概要\n" +
+          "・対象コードの変数や関数ごとに処理を全て時系列で詳細におしえて\n" +
+          "・対象コードの押さえておくべきホポイント3つ";
+
+        // ---------------------------
+        // 2つ目のフィールド：上司からのレビュー指摘内容
+        // ---------------------------
+        createField();
+        const secondFieldInput = fieldsContainer.querySelectorAll(
+          ".field input[type='text']"
+        )[1];
+        secondFieldInput.value = "対象のコード";
       }
       updateOutput();
     });
@@ -217,12 +259,18 @@ function createField() {
         <button type="button" class="delete-btn">削除</button>
       </div>
     </div>
-    <div class="common-words">
-      <button type="button" class="common-word-btn" data-word="コード">コード</button>
-      <button type="button" class="common-word-btn" data-word="TSファイル">TSファイル</button>
-      <button type="button" class="common-word-btn" data-word="HTMLファイル">HTMLファイル</button>
-      <button type="button" class="common-word-btn" data-word="テストコード">テストコード</button>
-      <button type="button" class="common-word-btn" data-word="エラー">エラー</button>
+    <div class="common-words-content">
+      <div class="common-words-general">
+        <button type="button" class="common-word-btn" data-word="出力内容">出力内容</button>
+        <button type="button" class="common-word-btn" data-word="コード">コード</button>
+        <button type="button" class="common-word-btn" data-word="エラー内容">エラー内容</button>
+      </div>
+      <div class="common-words-file">
+        <button type="button" class="common-word-btn" data-word="TSファイル">TSファイル</button>
+        <button type="button" class="common-word-btn" data-word="HTMLファイル">HTMLファイル</button>
+        <button type="button" class="common-word-btn" data-word="SCSSファイル">SCSSファイル</button>
+        <button type="button" class="common-word-btn" data-word="テストファイル">テストファイル</button>
+      </div>
     </div>
     <div class="field-content" style="display: block;">
       <textarea rows="8" placeholder="内容"></textarea>
